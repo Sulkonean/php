@@ -31,6 +31,24 @@
 				$testnimonimal = false;
 				$recentblog = false;
                 break;
+                case "cart":
+                    $page = "cart.php";
+                    $hero = false;
+                    $choseus = false;
+                    $help = false;
+                    $pupular = false;
+                    $testnimonimal = false;
+                    $recentblog = false;
+                break;
+                case "checkout":
+                    $page = "checkout.php";
+                    $hero = false;
+                    $choseus = false;
+                    $help = false;
+                    $pupular = false;
+                    $testnimonimal = false;
+                    $recentblog = false;
+                break;
             default:
                 $page = "home.php"; // Fallback to home if an unknown value is passed
         }
