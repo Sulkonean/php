@@ -94,10 +94,10 @@
         <!-- End Blog Section -->    
 
         <!-- Start Footer Section -->
-        <?php include "include/footer.php"; ?>
+        <?php include_once "include/footer.php"; ?>
         <!-- End Footer Section -->    
 
-        <?php include "include/script.php"; ?>
+        <?php include_once "include/script.php"; ?>
     </body>
 
 </html>

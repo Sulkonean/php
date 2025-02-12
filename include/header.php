@@ -70,7 +70,7 @@
 </nav> -->
 
 <!-- testing third -->
-<nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
+<!-- <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
 
     <div class="container">
         <a class="navbar-brand" href="index.php">Furni<span>.</span></a>
@@ -93,10 +93,10 @@
                 <li class="nav-item">
                     <a class="nav-link <?= ($p == 'contact') ? 'active' : '' ?>" href="index.php?p=contact">Contact Us</a>
                 </li>
-                <!-- <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link <?= ($p == 'checkout') ? 'active' : '' ?>" href="index.php?p=checkout">ChackOut</a>
                 </li> -->
-            </ul>
+            <!-- </ul>
 
             <ul class="custom-navbar-cta navbar-nav mb-0 ms-5">
                 <li class="nav-item">
@@ -114,4 +114,44 @@
         </div>
     </div>
 
+</nav> -->
+
+<nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
+    <div class="container">
+        <a class="navbar-brand" href="index.php">Furni<span>.</span></a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+            <?php $p = isset($_GET['p']) ? $_GET['p'] : 'home'; ?>
+
+            <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                <li class="nav-item <?= ($p == 'home') ? 'active' : '' ?>">
+                    <a class="nav-link" href="index.php">Home</a>
+                </li>
+                <li class="nav-item <?= ($p == 'shop') ? 'active' : '' ?>">
+                    <a class="nav-link" href="index.php?p=shop">Shop</a>
+                </li>
+                <li class="nav-item <?= ($p == 'contact') ? 'active' : '' ?>">
+                    <a class="nav-link" href="index.php?p=contact">Contact Us</a>
+                </li>
+            </ul>
+
+            <ul class="custom-navbar-cta navbar-nav mb-0 ms-5">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <img src="images/user.svg" alt="User" class="navbar-icon">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?p=cart">
+                        <img src="images/cart.svg" alt="Cart" class="navbar-icon">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </nav>
+

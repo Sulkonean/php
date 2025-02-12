@@ -1,26 +1,27 @@
+<?php include_once "include/head.php"; ?>
 <div class="hero">
-		<div class="container">
-			<div class="row justify-content-between">
-				<div class="col-lg-5">
-					<div class="intro-excerpt">
-						<h1>Contact</h1>
-						<p class="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam
-							vulputate velit imperdiet dolor tempor tristique.</p>
-						<p><a href="" class="btn btn-secondary me-2">Shop Now</a><a href="#"
-								class="btn btn-white-outline">Explore</a></p>
-					</div>
+	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-lg-5">
+				<div class="intro-excerpt">
+					<h1>Contact</h1>
+					<p class="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam
+						vulputate velit imperdiet dolor tempor tristique.</p>
+					<p><a href="shop.php" class="btn btn-secondary me-2">Shop Now</a><a href="#"
+							class="btn btn-white-outline">Explore</a></p>
 				</div>
-				<div class="col-lg-7">
-					<div class="hero-img-wrap">
-						<img src="images/couch.png" class="img-fluid">
-					</div>
+			</div>
+			<div class="col-lg-7">
+				<div class="hero-img-wrap">
+					<img src="images/couch.png" class="img-fluid">
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 <div class="product-section">
 
-<div class="untree_co-section">
+	<div class="untree_co-section">
 		<div class="container">
 
 			<div class="block">
@@ -119,3 +120,8 @@
 
 	</div>
 </div>
+<!-- Start Footer Section -->
+<?php include_once "include/footer.php"; ?>
+<!-- End Footer Section -->
+
+<?php include_once "include/script.php"; ?>

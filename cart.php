@@ -1,3 +1,6 @@
+<?php include_once "include/head.php"; ?>
+<?php include_once "include/header.php"; ?>
+
 <div class="hero">
     <div class="container">
         <div class="row justify-content-between">
@@ -143,3 +146,7 @@
         </div>
     </div>
 </div>
+<?php include_once "include/footer.php"; ?>
+<!-- End Footer Section -->
+
+<?php include_once "include/script.php"; ?>
