@@ -134,6 +134,12 @@
                 <li class="nav-item <?= ($p == 'shop') ? 'active' : '' ?>">
                     <a class="nav-link" href="index.php?p=shop">Shop</a>
                 </li>
+                <li class="nav-item <?= ($p == 'about') ? 'active' : '' ?>">
+                    <a class="nav-link" href="index.php?p=about">About US</a>
+                </li>
+                <li class="nav-item <?= ($p == 'services') ? 'active' : '' ?>">
+                    <a class="nav-link" href="index.php?p=services">Services</a>
+                </li>
                 <li class="nav-item <?= ($p == 'contact') ? 'active' : '' ?>">
                     <a class="nav-link" href="index.php?p=contact">Contact Us</a>
                 </li>
