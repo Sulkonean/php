@@ -1,20 +1,58 @@
 [
     {
-        "name": "khmer",
-        "price": "14",
-        "status": "Out of Stock",
-        "image": "uploads\/1739604503_product-3.png"
-    },
-    {
-        "name": "dfdsfsd",
+        "name": "T-Shirt",
         "price": "16",
         "status": "Available",
-        "image": "uploads\/1739604889_product-2.png"
+        "type": "shop",
+        "image": "uploads\/1740121264_photo_7_2025-02-16_10-50-52.jpg"
     },
     {
-        "name": "dfdsfsd",
-        "price": "14",
-        "status": "Out of Stock",
-        "image": "uploads\/1739779503_Screenshot 2025-01-15 at 5.53.07 in the afternoon.png"
+        "name": "Hoordi",
+        "price": "16",
+        "status": "Available",
+        "type": "home",
+        "image": "uploads\/1740121512_photo_9_2025-02-16_10-50-52.jpg"
+    },
+    {
+        "name": "Stussy",
+        "price": "16",
+        "status": "Available",
+        "type": "home",
+        "image": "uploads\/1740121578_photo_15_2025-02-16_10-50-52.jpg"
+    },
+    {
+        "name": "8 Ball",
+        "price": "16",
+        "status": "Available",
+        "type": "home",
+        "image": "uploads\/1740121758_photo_8_2025-02-16_10-50-52.jpg"
+    },
+    {
+        "name": "T-Shirt 8Ball",
+        "price": "16",
+        "status": "Available",
+        "type": "shop",
+        "image": "uploads\/1740127775_photo_17_2025-02-16_10-50-52.jpg"
+    },
+    {
+        "name": "T-Shirt Stussy",
+        "price": "16",
+        "status": "Available",
+        "type": "shop",
+        "image": "uploads\/1740127826_photo_1_2025-02-16_10-50-52.jpg"
+    },
+    {
+        "name": "Hoodie Stussy",
+        "price": "16",
+        "status": "Available",
+        "type": "shop",
+        "image": "uploads\/1740127895_photo_4_2025-02-16_10-50-52.jpg"
+    },
+    {
+        "name": "T-Shirt 3",
+        "price": "16",
+        "status": "Available",
+        "type": "shop",
+        "image": "uploads\/1740128098_photo_15_2025-02-16_10-50-52.jpg"
     }
 ]

@@ -12,7 +12,7 @@
 										<img src="images/truck.svg" alt="Image" class="imf-fluid">
 									</div>
 									<h3>Fast &amp; Free Shipping</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
+									<p>Enjoy quick and hassle-free delivery at no extra cost. We ensure your orders reach you on time, every time.</p>
 								</div>
 							</div>
 
@@ -22,7 +22,7 @@
 										<img src="images/bag.svg" alt="Image" class="imf-fluid">
 									</div>
 									<h3>Easy to Shop</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
+									<p>A seamless shopping experience with a user-friendly interface and secure checkout process.</p>
 								</div>
 							</div>
 
@@ -32,7 +32,7 @@
 										<img src="images/support.svg" alt="Image" class="imf-fluid">
 									</div>
 									<h3>24/7 Support</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
+									<p>Got questions? Our dedicated support team is available around the clock to assist you.</p>
 								</div>
 							</div>
 
@@ -42,7 +42,7 @@
 										<img src="images/return.svg" alt="Image" class="imf-fluid">
 									</div>
 									<h3>Hassle Free Returns</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
+									<p>Shop with confidence! If you're not satisfied, our easy return process makes it simple to exchange or get a refund.</p>
 								</div>
 							</div>
 
@@ -51,7 +51,7 @@
 
 					<div class="col-lg-5">
 						<div class="img-wrap">
-							<img src="images/why-choose-us-img.jpg" alt="Image" class="img-fluid">
+							<img src="images/chus2.jpg" alt="Image" class="img-fluid">
 						</div>
 					</div>
 
