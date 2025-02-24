@@ -709,3 +709,29 @@ textarea {
     height: 50px;
     border-radius: 50%;
     background: rgba(59, 93, 80, 0.2); }
+
+
+    .quantity-container {
+      display: flex;
+      align-items: center;
+      gap: 5px; /* Adjust spacing between buttons and input */
+  }
+  
+  .quantity-btn {
+      width: 30px;  /* Adjust button size */
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      cursor: pointer;
+  }
+  
+  .quantity-input {
+      width: 50px; /* Adjust width */
+      height: 30px;
+      text-align: center;
+      border: 1px solid #ccc;
+  }
+  

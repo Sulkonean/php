@@ -1,5 +1,6 @@
 [
     {
+        "id": "1",
         "name": "T-Shirt",
         "price": "16",
         "status": "Available",
@@ -7,6 +8,7 @@
         "image": "uploads\/1740121264_photo_7_2025-02-16_10-50-52.jpg"
     },
     {
+        "id": "2",
         "name": "Hoordi",
         "price": "16",
         "status": "Available",
@@ -14,6 +16,7 @@
         "image": "uploads\/1740121512_photo_9_2025-02-16_10-50-52.jpg"
     },
     {
+        "id": "3",
         "name": "Stussy",
         "price": "16",
         "status": "Available",
@@ -21,6 +24,7 @@
         "image": "uploads\/1740121578_photo_15_2025-02-16_10-50-52.jpg"
     },
     {
+        "id": "4",
         "name": "8 Ball",
         "price": "16",
         "status": "Available",
@@ -28,6 +32,7 @@
         "image": "uploads\/1740121758_photo_8_2025-02-16_10-50-52.jpg"
     },
     {
+        "id": "5",
         "name": "T-Shirt 8Ball",
         "price": "16",
         "status": "Available",
@@ -35,6 +40,7 @@
         "image": "uploads\/1740127775_photo_17_2025-02-16_10-50-52.jpg"
     },
     {
+        "id": "6",
         "name": "T-Shirt Stussy",
         "price": "16",
         "status": "Available",
@@ -42,6 +48,7 @@
         "image": "uploads\/1740127826_photo_1_2025-02-16_10-50-52.jpg"
     },
     {
+        "id": "7",
         "name": "Hoodie Stussy",
         "price": "16",
         "status": "Available",
@@ -49,6 +56,7 @@
         "image": "uploads\/1740127895_photo_4_2025-02-16_10-50-52.jpg"
     },
     {
+        "id": "8",
         "name": "T-Shirt 3",
         "price": "16",
         "status": "Available",
