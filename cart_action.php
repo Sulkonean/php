@@ -5,14 +5,13 @@ header('Content-Type: application/json');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
 
-    // Validate inputs
-    $product_id = strip_tags(trim($_POST['id'] ?? ''));
+    $product_id = (int) ($_POST['id'] ?? 0);
     $product_name = strip_tags(trim($_POST['name'] ?? ''));
-    $product_price = strip_tags(trim($_POST['price'] ?? ''));
+    $product_price = floatval($_POST['price'] ?? 0);
     $product_image = strip_tags(trim($_POST['image'] ?? ''));
-    $product_quantity = intval($_POST['quantity'] ?? 1);
+    $product_quantity = max(1, intval($_POST['quantity'] ?? 1)); // Prevent negative quantity
 
-    if (!is_numeric($product_id) || empty($product_id)) {
+    if ($product_id <= 0) {
         echo json_encode(['error' => 'Invalid product ID']);
         exit;
     }
@@ -29,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['cart'][$product_id] = [
                     'id' => $product_id,
                     'name' => $product_name,
-                    'price' => floatval($product_price),
+                    'price' => $product_price,
                     'quantity' => $product_quantity,
                     'image' => $product_image
                 ];
@@ -59,15 +58,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
     }
 
-    // Calculate total cart count
-    $cart_count = array_sum(array_column($_SESSION['cart'], 'quantity'));
+    // Calculate total cart count and subtotal
+    $cart_count = 0;
+    $subtotal = 0;
 
-    // Return updated quantity and cart count
+    foreach ($_SESSION['cart'] as $item) {
+        $cart_count += $item['quantity'];
+        $subtotal += $item['price'] * $item['quantity'];
+    }
+
     echo json_encode([
         'success' => true,
         'quantity' => $_SESSION['cart'][$product_id]['quantity'] ?? 0,
-        'cart_count' => $cart_count
+        'cart_count' => $cart_count,
+        'subtotal' => number_format($subtotal, 2)
     ]);
     exit;
 }
-?>

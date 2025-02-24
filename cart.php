@@ -9,7 +9,6 @@ include_once "include/header.php";
 $subtotal = 0;
 ?>
 
-
 <div class="hero">
     <div class="container">
         <div class="row justify-content-between">
@@ -52,7 +51,7 @@ $subtotal = 0;
                                             <td class="product-name">
                                                 <h2 class="h5 text-black"><?= htmlspecialchars($item['name']) ?></h2>
                                             </td>
-                                            <td>$<?= number_format($item['price'], 2) ?></td>
+                                            <td class="product-price">$<?= number_format($item['price'], 2) ?></td>
                                             <td>
                                                 <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
                                                     <button class="btn btn-outline-black decrease cart-action" data-action="decrease">&minus;</button>
@@ -126,7 +125,22 @@ $subtotal = 0;
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='checkout.php'">Proceed To Checkout</button>
+                                    <!-- <button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='checkout.php'">Proceed To Checkout</button> -->
+                                    <!-- <form id="payment-form" action="chckout.php" method="POST">
+                                        <input type="hidden" name="amount" value="<?= $subtotal ?>">
+                                        <button type="submit" class="btn btn-black btn-lg py-3 btn-block">Place Order</button>
+                                    </form> -->
+                                    <!-- <form action="checkout1.php"> -->
+                                    <!-- <button type="submit" class="btn btn-black btn-lg py-3 btn-block">Process To CheckOut</button> -->
+                                    <?php
+                                    $_SESSION['cart_total'] = $subtotal; // Store the actual cart total in the session
+                                    ?>
+                                    <a href="checkout1.php" class="btn btn-black btn-lg py-3 btn-block">Process to Checkout</a>
+
+
+                                    <!-- </form> -->
+
+
                                 </div>
                             </div>
                         </div>
@@ -137,200 +151,92 @@ $subtotal = 0;
     </div>
 </div>
 
-<!-- <script>document.addEventListener("DOMContentLoaded", function () {
-    const cartBody = document.getElementById("cart-body");
-    const cartTotal = document.querySelectorAll(".cart-total");
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const cartBody = document.getElementById("cart-body");
+        const cartTotalElements = document.querySelectorAll(".cart-total");
 
-    function updateCartTotals() {
-        let subtotal = 0;
-        document.querySelectorAll(".product-total").forEach(totalElement => {
-            subtotal += parseFloat(totalElement.textContent.replace("$", "").trim());
+        function updateCartTotals() {
+            let subtotal = 0;
+            let products = document.querySelectorAll(".product-total");
+
+            if (products.length === 0) {
+                subtotal = 0;
+            } else {
+                products.forEach(totalElement => {
+                    let priceText = totalElement.textContent.replace("$", "").trim();
+                    let price = parseFloat(priceText);
+                    if (!isNaN(price)) {
+                        subtotal += price;
+                    }
+                });
+            }
+
+            cartTotalElements.forEach(el => el.textContent = `$${subtotal.toFixed(2)}`);
+        }
+
+
+        function updateCart(productId, action) {
+            let formData = new FormData();
+            formData.append("action", action);
+            formData.append("id", productId);
+
+            fetch("cart_action.php", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        let row = document.querySelector(`[data-product-id='${productId}']`);
+                        if (!row) return;
+
+                        let quantityInput = row.querySelector(".quantity-amount");
+                        let price = parseFloat(row.querySelector(".product-price").textContent.replace("$", "").trim());
+                        let newQuantity = data.quantity;
+
+                        quantityInput.value = newQuantity;
+                        row.querySelector(".product-total").textContent = `$${(price * newQuantity).toFixed(2)}`;
+
+                        updateCartTotals();
+
+                        if (newQuantity <= 0) {
+                            row.remove();
+                        }
+
+                        if (!document.querySelector("[data-product-id]")) {
+                            cartBody.innerHTML = `<tr><td colspan="6" class="text-center">Your cart is empty</td></tr>`;
+                            cartTotalElements.forEach(el => el.textContent = "$0.00");
+                        }
+                    } else {
+                        alert(data.error || "Error updating cart!");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        cartBody.addEventListener("click", function(event) {
+            event.preventDefault();
+            let target = event.target;
+            let row = target.closest("tr");
+            if (!row) return;
+
+            let productId = row.dataset.productId;
+
+            if (target.classList.contains("increase")) {
+                updateCart(productId, "increase");
+            } else if (target.classList.contains("decrease")) {
+                updateCart(productId, "decrease");
+            } else if (target.classList.contains("cart-action") && target.dataset.action === "remove") {
+                if (confirm("Are you sure you want to remove this item?")) {
+                    updateCart(productId, "remove");
+                }
+            }
         });
 
-        cartTotal.forEach(el => el.textContent = `$${subtotal.toFixed(2)}`);
-    }
-
-    function updateCart(productId, action) {
-        let formData = new FormData();
-        formData.append("action", action);
-        formData.append("id", productId); // Ensure 'id' matches PHP variable
-
-        fetch("cart_action.php", {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                let row = document.querySelector(`[data-product-id='${productId}']`);
-
-                if (action === "remove") {
-                    row.remove();
-                } else {
-                    let quantityInput = row.querySelector(".quantity-amount");
-                    let price = parseFloat(row.querySelector(".product-price").textContent.replace("$", "").trim());
-                    let newQuantity = data.quantity;
-
-                    quantityInput.value = newQuantity;
-                    row.querySelector(".product-total").textContent = `$${(price * newQuantity).toFixed(2)}`;
-
-                    row.querySelector(".decrease").disabled = newQuantity <= 1;
-                }
-
-                updateCartTotals();
-            } else {
-                alert(data.error || "Error updating cart!");
-            }
-        })
-        .catch(error => console.error("Error:", error));
-    }
-
-    cartBody.addEventListener("click", function (event) {
-        let target = event.target;
-        let row = target.closest("tr");
-        if (!row) return;
-
-        let productId = row.dataset.productId;
-
-        if (target.classList.contains("increase")) {
-            updateCart(productId, "increase");
-        } else if (target.classList.contains("decrease")) {
-            updateCart(productId, "decrease");
-        } else if (target.classList.contains("cart-action") && target.dataset.action === "remove") {
-            if (confirm("Are you sure you want to remove this item?")) {
-                updateCart(productId, "remove");
-            }
-        }
+        updateCartTotals();
     });
-
-    updateCartTotals();
-});
-function updateCart(productId, action) {
-    let formData = new FormData();
-    formData.append("action", action);
-    formData.append("id", productId);
-
-    fetch("cart_action.php", {
-        method: "POST",
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            document.getElementById("cart-count").textContent = data.cart_count; // Update cart count in navbar
-
-            let row = document.querySelector(`[data-product-id='${productId}']`);
-            if (action === "remove") {
-                row.remove();
-            } else {
-                let quantityInput = row.querySelector(".quantity-amount");
-                let price = parseFloat(row.querySelector(".product-price").textContent.replace("$", "").trim());
-                let newQuantity = data.quantity;
-
-                quantityInput.value = newQuantity;
-                row.querySelector(".product-total").textContent = `$${(price * newQuantity).toFixed(2)}`;
-            }
-
-            updateCartTotals();
-        } else {
-            alert(data.error || "Error updating cart!");
-        }
-    })
-    .catch(error => console.error("Error:", error));
-} -->
-    <script>document.addEventListener("DOMContentLoaded", function () {
-    const cartBody = document.getElementById("cart-body");
-    const cartTotalElements = document.querySelectorAll(".cart-total");
-    const cartCount = document.getElementById("cart-count"); // Navbar cart count
-
-    function updateCartTotals() {
-        let subtotal = 0;
-        document.querySelectorAll(".product-total").forEach(totalElement => {
-            subtotal += parseFloat(totalElement.textContent.replace("$", "").trim());
-        });
-
-        cartTotalElements.forEach(el => el.textContent = `$${subtotal.toFixed(2)}`);
-    }
-
-    function updateCart(productId, action) {
-        let formData = new FormData();
-        formData.append("action", action);
-        formData.append("id", productId);
-
-        fetch("cart_action.php", {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                if (cartCount) {
-                    cartCount.textContent = data.cart_count; // Update navbar cart count
-                }
-
-                let row = document.querySelector(`[data-product-id='${productId}']`);
-                if (!row) return; // Avoid errors if row is missing
-
-                let quantityInput = row.querySelector(".quantity-amount");
-                let priceElement = row.querySelector(".product-price");
-                let totalElement = row.querySelector(".product-total");
-
-                let price = parseFloat(priceElement.textContent.replace("$", "").trim());
-                let newQuantity = data.quantity;
-
-                // Update UI without refreshing
-                quantityInput.value = newQuantity;
-                totalElement.textContent = `$${(price * newQuantity).toFixed(2)}`;
-
-                // Disable "decrease" button if quantity is 1
-                row.querySelector(".decrease").disabled = newQuantity <= 1;
-
-                updateCartTotals();
-
-                // If cart is empty, show message
-                if (!document.querySelector("[data-product-id]")) {
-                    cartBody.innerHTML = `<tr><td colspan="6" class="text-center">Your cart is empty</td></tr>`;
-                    cartTotalElements.forEach(el => el.textContent = "$0.00");
-                }
-            } else {
-                alert(data.error || "Error updating cart!");
-            }
-        })
-        .catch(error => console.error("Error:", error));
-    }
-
-    cartBody.addEventListener("click", function (event) {
-        event.preventDefault(); // **STOP PAGE REFRESH!**
-
-        let target = event.target;
-        let row = target.closest("tr");
-        if (!row) return;
-
-        let productId = row.dataset.productId;
-
-        if (target.classList.contains("increase")) {
-            updateCart(productId, "increase");
-        } else if (target.classList.contains("decrease")) {
-            updateCart(productId, "decrease");
-        } else if (target.classList.contains("cart-action") && target.dataset.action === "remove") {
-            if (confirm("Are you sure you want to remove this item?")) {
-                updateCart(productId, "remove");
-            }
-        }
-    });
-
-    updateCartTotals();
-});
-
-
-
-
-
-
-
-
 </script>
-
 
 <?php include_once "include/footer.php"; ?>
 <?php include_once "include/script.php"; ?>

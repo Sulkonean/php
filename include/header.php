@@ -205,11 +205,11 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </ul>
 
             <ul class="custom-navbar-cta navbar-nav mb-0 ms-5">
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="#">
                         <img src="images/user.svg" alt="User" class="navbar-icon">
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
     <a class="nav-link" href="cart.php">
         <img src="images/cart.svg" alt="Cart" class="navbar-icon">
