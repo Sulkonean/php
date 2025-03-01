@@ -39,23 +39,23 @@
     <li class="nav-item <?= ($p == 'tables') ? 'active' : '' ?>">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable">
             <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span>
+            <span>Category</span>
         </a>
         <div id="collapseTable" class="collapse <?= ($p == 'addproduct' || $p == 'datatables') ? 'show' : '' ?>">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Table Options</h6>
+                <h6 class="collapse-header">Category</h6>
                 <a class="collapse-item <?= ($p == 'addproduct') ? 'active' : '' ?>" href="index.php?p=addproduct">Product</a>
                 <a class="collapse-item <?= ($p == 'datatables') ? 'active' : '' ?>" href="index.php?p=datatables">DataTables</a>
             </div>
         </div>
     </li>
 
-    <li class="nav-item <?= ($p == 'ui-colors') ? 'active' : '' ?>">
+    <!-- <li class="nav-item <?= ($p == 'ui-colors') ? 'active' : '' ?>">
         <a class="nav-link" href="index.php?p=ui-colors">
             <i class="fas fa-fw fa-palette"></i>
             <span>UI Colors</span>
         </a>
-    </li>
+    </li> -->
 
     <hr class="sidebar-divider">
 
@@ -78,12 +78,12 @@
         </div>
     </li>
 
-    <li class="nav-item <?= ($p == 'charts') ? 'active' : '' ?>">
+    <!-- <li class="nav-item <?= ($p == 'charts') ? 'active' : '' ?>">
         <a class="nav-link" href="index.php?p=charts">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Charts</span>
         </a>
-    </li>
+    </li> -->
 
     <hr class="sidebar-divider">
 </ul>

@@ -61,7 +61,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_product'])) {
     $stmt->execute([$name, $price, $status, $type, $imagePath]);
 
     // Save to JSON file
-    $productData = ['name' => $name, 'price' => $price, 'status' => $status, 'type' => $type, 'image' => $imagePath];
+    // $productData = ['name' => $name, 'price' => $price, 'status' => $status, 'type' => $type, 'image' => $imagePath];
+    // Get last inserted product ID
+    $lastId = $pdo->lastInsertId();
+
+    // Save to JSON file with ID
+    $productData = ['id' => $lastId, 'name' => $name, 'price' => $price, 'status' => $status, 'type' => $type, 'image' => $imagePath];
+
     $existingData = file_exists($jsonFile) ? json_decode(file_get_contents($jsonFile), true) : [];
     $existingData[] = $productData;
     file_put_contents($jsonFile, json_encode($existingData, JSON_PRETTY_PRINT));
@@ -117,12 +123,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_product'])) {
     // Update database
     $stmt = $pdo->prepare("UPDATE products SET name = ?, price = ?, status = ?, type = ?, image = ? WHERE id = ?");
     $stmt->execute([$name, $price, $status, $type, $imagePath, $id]);
-
     // Update JSON file
     if (file_exists($jsonFile)) {
         $existingData = json_decode(file_get_contents($jsonFile), true);
         foreach ($existingData as &$product) {
-            if ($product['id'] == $id) {
+            if ($product['id'] == $id) {  // Match by ID
                 $product['name'] = $name;
                 $product['price'] = $price;
                 $product['status'] = $status;
@@ -133,6 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_product'])) {
         }
         file_put_contents($jsonFile, json_encode($existingData, JSON_PRETTY_PRINT));
     }
+
 
     $productUpdated = true;
     header("Location: " . $_SERVER['PHP_SELF']);
@@ -157,11 +163,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_product'])) {
         // Delete from database
         $stmt = $pdo->prepare("DELETE FROM products WHERE id = ?");
         $stmt->execute([$deleteId]);
-
         // Update JSON file
         if (file_exists($jsonFile)) {
             $existingData = json_decode(file_get_contents($jsonFile), true);
-            $filteredData = array_filter($existingData, fn($item) => $item['name'] !== $product['name']);
+            $filteredData = array_filter($existingData, fn($item) => $item['id'] != $deleteId);
             file_put_contents($jsonFile, json_encode(array_values($filteredData), JSON_PRETTY_PRINT));
         }
     }
@@ -235,7 +240,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                             <?php endif; ?>
                                         </div>
                                         <button type="submit" name="<?php echo isset($productToEdit) ? 'update_product' : 'add_product'; ?>" class="btn btn-primary"><?php echo isset($productToEdit) ? 'Update' : 'Add'; ?> Product</button>
-                                        
+
                                     </form>
                                 </div>
                             </div>
@@ -243,44 +248,44 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                         <!-- Display Products -->
                         <div class="col-lg-12 mb-4">
-    <div class="card">
-        <div class="card-header text-primary font-weight-bold">Product List</div>
-        <div class="card-body">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Status</th>
-                        <th>Type</th>
-                        <th>Image</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($products as $product): ?>
-                        <tr>
-                            <td><?php echo $product['id']; ?></td>
-                            <td><?php echo $product['name']; ?></td>
-                            <td><?php echo $product['price']; ?></td>
-                            <td><?php echo $product['status']; ?></td>
-                            <td><?php echo $product['type']; ?></td>
-                            <td><img src="<?php echo $product['image']; ?>" width="50"></td>
-                            <td>
-                                <a href="?edit_id=<?php echo $product['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
-                                <form method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure you want to delete this product?');">
-                                    <input type="hidden" name="delete_id" value="<?php echo $product['id']; ?>">
-                                    <button type="submit" name="delete_product" class="btn btn-danger btn-sm">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+                            <div class="card">
+                                <div class="card-header text-primary font-weight-bold">Product List</div>
+                                <div class="card-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Price</th>
+                                                <th>Status</th>
+                                                <th>Type</th>
+                                                <th>Image</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($products as $product): ?>
+                                                <tr>
+                                                    <td><?php echo $product['id']; ?></td>
+                                                    <td><?php echo $product['name']; ?></td>
+                                                    <td><?php echo $product['price']; ?></td>
+                                                    <td><?php echo $product['status']; ?></td>
+                                                    <td><?php echo $product['type']; ?></td>
+                                                    <td><img src="<?php echo $product['image']; ?>" width="50"></td>
+                                                    <td>
+                                                        <a href="?edit_id=<?php echo $product['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
+                                                        <form method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                                            <input type="hidden" name="delete_id" value="<?php echo $product['id']; ?>">
+                                                            <button type="submit" name="delete_product" class="btn btn-danger btn-sm">Delete</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -290,4 +295,5 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <?php include_once "include/footer.php"; ?>
 </body>
+
 </html>
