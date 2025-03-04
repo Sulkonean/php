@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 header("Content-Type: application/json");
 session_start();
 error_reporting(E_ALL);
@@ -97,4 +97,4 @@ exit;
     }
 });
 
-</script>
+</script> -->

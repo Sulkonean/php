@@ -1,66 +1,82 @@
 [
     {
-        "id": "1",
+        "id": "99",
         "name": "T-Shirt",
-        "price": "16",
+        "price": "16.00",
         "status": "Available",
         "type": "shop",
-        "image": "uploads\/1740121264_photo_7_2025-02-16_10-50-52.jpg"
+        "image": "uploads\/1741062528_photo_7_2025-02-16_10-50-52.jpg"
     },
     {
-        "id": "2",
-        "name": "Hoordi",
-        "price": "16",
-        "status": "Available",
-        "type": "home",
-        "image": "uploads\/1740121512_photo_9_2025-02-16_10-50-52.jpg"
-    },
-    {
-        "id": "3",
-        "name": "Stussy",
-        "price": "16",
-        "status": "Available",
-        "type": "home",
-        "image": "uploads\/1740121578_photo_15_2025-02-16_10-50-52.jpg"
-    },
-    {
-        "id": "4",
-        "name": "8 Ball",
-        "price": "16",
-        "status": "Available",
-        "type": "home",
-        "image": "uploads\/1740121758_photo_8_2025-02-16_10-50-52.jpg"
-    },
-    {
-        "id": "5",
-        "name": "T-Shirt 8Ball",
-        "price": "16",
-        "status": "Available",
-        "type": "shop",
-        "image": "uploads\/1740127775_photo_17_2025-02-16_10-50-52.jpg"
-    },
-    {
-        "id": "6",
-        "name": "T-Shirt Stussy",
-        "price": "16",
-        "status": "Available",
-        "type": "shop",
-        "image": "uploads\/1740127826_photo_1_2025-02-16_10-50-52.jpg"
-    },
-    {
-        "id": "7",
+        "id": "101",
         "name": "Hoodie Stussy",
         "price": "16",
         "status": "Available",
-        "type": "shop",
-        "image": "uploads\/1740127895_photo_4_2025-02-16_10-50-52.jpg"
+        "type": "home",
+        "image": "uploads\/1741062855_photo_4_2025-02-16_10-50-52.jpg"
     },
     {
-        "id": "8",
-        "name": "T-Shirt 3",
+        "id": "102",
+        "name": "T-Shirt 8Ball",
+        "price": "16",
+        "status": "Available",
+        "type": "home",
+        "image": "uploads\/1741062879_photo_17_2025-02-16_10-50-52.jpg"
+    },
+    {
+        "id": "103",
+        "name": "T-Shirt Stussy",
+        "price": "16",
+        "status": "Available",
+        "type": "home",
+        "image": "uploads\/1741062904_photo_15_2025-02-16_10-50-52.jpg"
+    },
+    {
+        "id": "104",
+        "name": "Hoodie Basic",
         "price": "16",
         "status": "Available",
         "type": "shop",
-        "image": "uploads\/1740128098_photo_15_2025-02-16_10-50-52.jpg"
+        "image": "uploads\/1741062953_photo_3_2025-02-16_10-50-52.jpg"
+    },
+    {
+        "id": "105",
+        "name": "Hoodie StussyV2",
+        "price": "16",
+        "status": "Available",
+        "type": "shop",
+        "image": "uploads\/1741063000_photo_9_2025-02-16_10-50-52.jpg"
+    },
+    {
+        "id": "106",
+        "name": "T-Shirt StussyWhi",
+        "price": "16",
+        "status": "Available",
+        "type": "shop",
+        "image": "uploads\/1741063026_photo_1_2025-02-16_10-50-52.jpg"
+    },
+    {
+        "id": "107",
+        "name": "T-Shirt 8BallV2",
+        "price": "16",
+        "status": "Available",
+        "type": "shop",
+        "image": "uploads\/1741063048_photo_8_2025-02-16_10-50-52.jpg"
+    },
+    {
+        "id": "108",
+        "name": "T-Shirt 8BallV3",
+        "price": "16",
+        "status": "Available",
+        "type": "shop",
+        "image": "uploads\/1741063142_photo_2_2025-02-16_10-50-52.jpg"
+    },
+    {
+        "id": "109",
+        "name": "8BallV3 Black",
+        "price": "16",
+        "status": "Available",
+        "type": "shop",
+        "image": "uploads\/1741063197_photo_5_2025-02-16_10-50-52.jpg"
     }
 ]

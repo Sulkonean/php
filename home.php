@@ -11,7 +11,7 @@
                 <p class="mb-4">
                     We bring you the latest trends in fashion at unbeatable prices. Whether you're looking for stylish casual wear, elegant formal outfits, or trendy accessories, we have something for everyone. 
                 </p>
-                <p><a href="shop.html" class="btn">Explore</a></p>
+                <p><a href="shop.php" class="btn">Explore</a></p>
             </div> 
             <!-- End Column 1 -->
 
@@ -152,5 +152,3 @@ function showNotification(message) {
     transform: translateY(0);
 }
 </style>
-
-<?php include_once "include/footer.php"; ?>

@@ -61,11 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_product'])) {
     $stmt->execute([$name, $price, $status, $type, $imagePath]);
 
     // Save to JSON file
-    // $productData = ['name' => $name, 'price' => $price, 'status' => $status, 'type' => $type, 'image' => $imagePath];
-    // Get last inserted product ID
     $lastId = $pdo->lastInsertId();
-
-    // Save to JSON file with ID
     $productData = ['id' => $lastId, 'name' => $name, 'price' => $price, 'status' => $status, 'type' => $type, 'image' => $imagePath];
 
     $existingData = file_exists($jsonFile) ? json_decode(file_get_contents($jsonFile), true) : [];
@@ -75,16 +71,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_product'])) {
     $productInserted = true;
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
-}
-
-// Handle product editing
-if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['edit_id'])) {
-    $editId = $_GET['edit_id'];
-
-    // Get product info to pre-fill the form
-    $stmt = $pdo->prepare("SELECT * FROM products WHERE id = ?");
-    $stmt->execute([$editId]);
-    $productToEdit = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 // Handle updating a product
@@ -123,6 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_product'])) {
     // Update database
     $stmt = $pdo->prepare("UPDATE products SET name = ?, price = ?, status = ?, type = ?, image = ? WHERE id = ?");
     $stmt->execute([$name, $price, $status, $type, $imagePath, $id]);
+
     // Update JSON file
     if (file_exists($jsonFile)) {
         $existingData = json_decode(file_get_contents($jsonFile), true);
@@ -138,7 +125,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_product'])) {
         }
         file_put_contents($jsonFile, json_encode($existingData, JSON_PRETTY_PRINT));
     }
-
 
     $productUpdated = true;
     header("Location: " . $_SERVER['PHP_SELF']);
@@ -163,6 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_product'])) {
         // Delete from database
         $stmt = $pdo->prepare("DELETE FROM products WHERE id = ?");
         $stmt->execute([$deleteId]);
+
         // Update JSON file
         if (file_exists($jsonFile)) {
             $existingData = json_decode(file_get_contents($jsonFile), true);
@@ -172,32 +159,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_product'])) {
     }
 }
 
-// Fetch products from database (show both shop and home products)
+// Fetch products from database
 $stmt = $pdo->query("SELECT * FROM products WHERE type IN ('shop', 'home') ORDER BY id DESC");
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<?php include_once "include/head.php"; ?>
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management</title>
+    <!-- Bootstrap CSS -->
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
+</head>
 <body id="page-top">
     <div id="wrapper">
-        <?php include_once "include/sidebar.php"; ?>
-
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
-                <?php include_once "include/topbar.php"; ?>
-
                 <div class="container-fluid" id="container-wrapper">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Add, Edit & Display Products</h1>
                     </div>
 
+                    <!-- Add Product Form -->
                     <div class="row">
                         <div class="col-lg-6 mb-4">
                             <div class="card">
-                                <div class="card-header text-primary font-weight-bold"><?php echo isset($productToEdit) ? 'Edit' : 'Add'; ?> Product</div>
+                                <div class="card-header text-primary font-weight-bold">Add Product</div>
                                 <div class="card-body">
                                     <?php if ($productInserted): ?>
                                         <div class="alert alert-success">Product added successfully!</div>
@@ -206,47 +195,39 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <?php endif; ?>
 
                                     <form method="POST" enctype="multipart/form-data">
-                                        <?php if (isset($productToEdit)): ?>
-                                            <input type="hidden" name="id" value="<?php echo $productToEdit['id']; ?>">
-                                            <input type="hidden" name="current_image" value="<?php echo $productToEdit['image']; ?>">
-                                        <?php endif; ?>
                                         <div class="form-group">
                                             <label>Product Name</label>
-                                            <input type="text" name="name" class="form-control" value="<?php echo isset($productToEdit) ? $productToEdit['name'] : ''; ?>" required>
+                                            <input type="text" name="name" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Price ($)</label>
-                                            <input type="number" step="0.01" name="price" class="form-control" value="<?php echo isset($productToEdit) ? $productToEdit['price'] : ''; ?>" required>
+                                            <input type="number" step="0.01" name="price" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Status</label>
                                             <select name="status" class="form-control" required>
-                                                <option value="Available" <?php echo isset($productToEdit) && $productToEdit['status'] == 'Available' ? 'selected' : ''; ?>>Available</option>
-                                                <option value="Out of Stock" <?php echo isset($productToEdit) && $productToEdit['status'] == 'Out of Stock' ? 'selected' : ''; ?>>Out of Stock</option>
+                                                <option value="Available">Available</option>
+                                                <option value="Out of Stock">Out of Stock</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Upload To</label>
                                             <select name="type" class="form-control" required>
-                                                <option value="shop" <?php echo isset($productToEdit) && $productToEdit['type'] == 'shop' ? 'selected' : ''; ?>>Shop</option>
-                                                <option value="home" <?php echo isset($productToEdit) && $productToEdit['type'] == 'home' ? 'selected' : ''; ?>>Home</option>
+                                                <option value="shop">Shop</option>
+                                                <option value="home">Home</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Product Image</label>
                                             <input type="file" name="image" class="form-control">
-                                            <?php if (isset($productToEdit) && $productToEdit['image']): ?>
-                                                <img src="<?php echo $productToEdit['image']; ?>" alt="Product Image" width="100" class="mt-2">
-                                            <?php endif; ?>
                                         </div>
-                                        <button type="submit" name="<?php echo isset($productToEdit) ? 'update_product' : 'add_product'; ?>" class="btn btn-primary"><?php echo isset($productToEdit) ? 'Update' : 'Add'; ?> Product</button>
-
+                                        <button type="submit" name="add_product" class="btn btn-primary">Add Product</button>
                                     </form>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Display Products -->
+                        <!-- Product List -->
                         <div class="col-lg-12 mb-4">
                             <div class="card">
                                 <div class="card-header text-primary font-weight-bold">Product List</div>
@@ -273,7 +254,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                                     <td><?php echo $product['type']; ?></td>
                                                     <td><img src="<?php echo $product['image']; ?>" width="50"></td>
                                                     <td>
-                                                        <a href="?edit_id=<?php echo $product['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
+                                                        <a href="#" class="btn btn-warning btn-sm edit-product" data-toggle="modal" data-target="#editProductModal" data-id="<?php echo $product['id']; ?>" data-name="<?php echo $product['name']; ?>" data-price="<?php echo $product['price']; ?>" data-status="<?php echo $product['status']; ?>" data-type="<?php echo $product['type']; ?>" data-image="<?php echo $product['image']; ?>">Edit</a>
                                                         <form method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure you want to delete this product?');">
                                                             <input type="hidden" name="delete_id" value="<?php echo $product['id']; ?>">
                                                             <button type="submit" name="delete_product" class="btn btn-danger btn-sm">Delete</button>
@@ -286,14 +267,82 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <?php include_once "include/footer.php"; ?>
-</body>
+    <!-- Edit Product Modal -->
+    <div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="editProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProductForm" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="id" id="editProductId">
+                        <input type="hidden" name="current_image" id="editProductCurrentImage">
+                        <div class="form-group">
+                            <label>Product Name</label>
+                            <input type="text" name="name" id="editProductName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Price ($)</label>
+                            <input type="number" step="0.01" name="price" id="editProductPrice" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select name="status" id="editProductStatus" class="form-control" required>
+                                <option value="Available">Available</option>
+                                <option value="Out of Stock">Out of Stock</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Upload To</label>
+                            <select name="type" id="editProductType" class="form-control" required>
+                                <option value="shop">Shop</option>
+                                <option value="home">Home</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Product Image</label>
+                            <input type="file" name="image" class="form-control">
+                            <img id="editProductImagePreview" src="" alt="Product Image" width="100" class="mt-2">
+                        </div>
+                        <button type="submit" name="update_product" class="btn btn-primary">Update Product</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.edit-product').on('click', function() {
+                var id = $(this).data('id');
+                var name = $(this).data('name');
+                var price = $(this).data('price');
+                var status = $(this).data('status');
+                var type = $(this).data('type');
+                var image = $(this).data('image');
+
+                $('#editProductId').val(id);
+                $('#editProductName').val(name);
+                $('#editProductPrice').val(price);
+                $('#editProductStatus').val(status);
+                $('#editProductType').val(type);
+                $('#editProductCurrentImage').val(image);
+                $('#editProductImagePreview').attr('src', image);
+            });
+        });
+    </script>
+</body>
 </html>

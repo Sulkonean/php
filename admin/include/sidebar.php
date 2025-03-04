@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php?p=home">
         <div class="sidebar-brand-icon">
-            <img src="img/logo/logo2.png" width="40">
+            <img src="img/logo.jpg" width="40">
         </div>
         <div class="sidebar-brand-text mx-3">Admin Panel</div>
     </a>
@@ -22,7 +22,7 @@
     <!-- Features Section -->
     <div class="sidebar-heading">Features</div>
 
-    <li class="nav-item <?= ($p == 'forms') ? 'active' : '' ?>">
+    <!-- <li class="nav-item <?= ($p == 'forms') ? 'active' : '' ?>">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm">
             <i class="fab fa-fw fa-wpforms"></i>
             <span>Forms</span>
@@ -34,7 +34,7 @@
                 <a class="collapse-item <?= ($p == 'form_advanceds') ? 'active' : '' ?>" href="index.php?p=form_advanceds">Advanced Forms</a>
             </div>
         </div>
-    </li>
+    </li> -->
 
     <li class="nav-item <?= ($p == 'tables') ? 'active' : '' ?>">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable">
@@ -45,7 +45,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Category</h6>
                 <a class="collapse-item <?= ($p == 'addproduct') ? 'active' : '' ?>" href="index.php?p=addproduct">Product</a>
-                <a class="collapse-item <?= ($p == 'datatables') ? 'active' : '' ?>" href="index.php?p=datatables">DataTables</a>
+                <!-- <a class="collapse-item <?= ($p == 'datatables') ? 'active' : '' ?>" href="index.php?p=datatables">DataTables</a> -->
             </div>
         </div>
     </li>

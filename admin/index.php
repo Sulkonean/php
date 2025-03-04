@@ -1,20 +1,31 @@
+
+
 <?php
+session_start();
 ob_start(); // Start output buffering to prevent "headers already sent" issues
+
+// Check if the user is logged in, redirect to login page if not
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    header('Location: login.php');
+    exit;
+}
+
 $page = "home.php";
 $p = "home";
 
 if (isset($_GET['p'])) {
-  $p = basename($_GET['p']); // Sanitize the input to avoid security risks
+    $p = basename($_GET['p']); // Sanitize the input to avoid security risks
 
-  switch ($p) {
-    case "addproduct":
-      $page = "addproduct.php";
-      break;
-    default:
-      $page = "home.php"; // Fallback to home if an unknown value is passed
-  }
+    switch ($p) {
+        case "addproduct":
+            $page = "addproduct.php";
+            break;
+        default:
+            $page = "home.php"; // Fallback to home if an unknown value is passed
+    }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
