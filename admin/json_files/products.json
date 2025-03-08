@@ -4,7 +4,7 @@
         "name": "T-Shirt",
         "price": "16.00",
         "status": "Available",
-        "type": "shop",
+        "type": "home",
         "image": "uploads\/1741062528_photo_7_2025-02-16_10-50-52.jpg"
     },
     {
@@ -50,9 +50,9 @@
     {
         "id": "106",
         "name": "T-Shirt StussyWhi",
-        "price": "16",
+        "price": "16.00",
         "status": "Available",
-        "type": "shop",
+        "type": "home",
         "image": "uploads\/1741063026_photo_1_2025-02-16_10-50-52.jpg"
     },
     {
@@ -66,17 +66,33 @@
     {
         "id": "108",
         "name": "T-Shirt 8BallV3",
-        "price": "16",
+        "price": "16.00",
         "status": "Available",
-        "type": "shop",
+        "type": "home",
         "image": "uploads\/1741063142_photo_2_2025-02-16_10-50-52.jpg"
     },
     {
         "id": "109",
         "name": "8BallV3 Black",
+        "price": "0.01",
+        "status": "Available",
+        "type": "home",
+        "image": "uploads\/1741063197_photo_5_2025-02-16_10-50-52.jpg"
+    },
+    {
+        "id": "112",
+        "name": "Stussy UK White",
+        "price": "16.00",
+        "status": "Available",
+        "type": "shop",
+        "image": "uploads\/1741413818_StussyUK.png"
+    },
+    {
+        "id": "113",
+        "name": "Stussy UK Black",
         "price": "16",
         "status": "Available",
         "type": "shop",
-        "image": "uploads\/1741063197_photo_5_2025-02-16_10-50-52.jpg"
+        "image": "uploads\/1741414039_202.png"
     }
 ]

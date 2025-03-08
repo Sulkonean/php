@@ -5,7 +5,7 @@ $hero = true;
 $choseus = true;
 $help = true;
 $pupular = true;
-$testnimonimal = true;
+$testnimonimal = false;
 $recentblog = true;
 
 

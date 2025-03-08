@@ -46,9 +46,9 @@
 
 				<!-- Start Column 2 -->
 				<div class="col-12 col-md-6 col-lg-3 mb-5 mb-md-0">
-					<img src="images/pro2.jpg" class="img-fluid mb-5">
+					<img src="images/pro3.jpg" class="img-fluid mb-5" style="height: 408px;">
 
-					<h3 clas><a href="#"><span class="">Bos</span> Saba</a></h3>
+					<h3 clas><a href="#"><span class="">O </span> ChannBosba</a></h3>
 					<span class="d-block position mb-4">CEO, Founder, Atty.</span>
 					<p>Separated they live in.
 						Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>

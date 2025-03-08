@@ -133,7 +133,7 @@ function showNotification(message) {
     // Remove notification after 3 seconds with fade-out animation
     setTimeout(() => {
         notification.classList.remove('show');
-        setTimeout(() => notification.remove(), 300);
+        setTimeout(() => notification.remove(), 200);
     }, 3000);
 }
 </script>

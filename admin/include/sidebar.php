@@ -73,7 +73,7 @@
                 <a class="collapse-item <?= ($p == 'login') ? 'active' : '' ?>" href="index.php?p=login">Login</a>
                 <a class="collapse-item <?= ($p == 'register') ? 'active' : '' ?>" href="index.php?p=register">Register</a>
                 <a class="collapse-item <?= ($p == '404') ? 'active' : '' ?>" href="index.php?p=404">404 Page</a>
-                <a class="collapse-item <?= ($p == 'blank') ? 'active' : '' ?>" href="index.php?p=blank">Blank Page</a>
+                <!-- <a class="collapse-item <?= ($p == 'blank') ? 'active' : '' ?>" href="index.php?p=blank">Blank Page</a> -->
             </div>
         </div>
     </li>
