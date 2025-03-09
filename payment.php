@@ -1,3 +1,4 @@
+```php
 <?php
 session_start();
 
@@ -6,6 +7,7 @@ $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
 
 // Check if cart is empty
 if (empty($cart)) {
+    http_response_code(400);
     die(json_encode(["error" => "Cart is empty"]));
 }
 
@@ -26,7 +28,7 @@ foreach ($cart as $id => $item) {
 $transactionId = "ORDER-" . time();
 
 // ABA PayWay API credentials
-$merchantId = "ec449300"; // Replace with your merchant ID
+$merchantId = getenv('MERCHANT_ID'); // Replace with your merchant ID
 $currency = "USD";
 $shipping = 1.35; // Fixed shipping cost (optional)
 $reqTime = time();
@@ -35,11 +37,12 @@ $reqTime = time();
 $itemsJson = json_encode($items);
 
 // Generate hash (Replace with your ABA PayWay hash logic)
-$hash = base64_encode(hash_hmac('sha256', $transactionId . $totalAmount, "YOUR_SECRET_KEY", true));
+$secretKey = getenv('SECRET_KEY');
+$hash = base64_encode(hash_hmac('sha256', $transactionId . $totalAmount, $secretKey, true));
 
 // Create redirect URL
 $paymentUrl = "https://link.payway.com.kh/aba?id=1A2438FC3F6F&code=716318&acc=003320500&dynamic=true"
-    . "hash=" . urlencode($hash)
+    . "&hash=" . urlencode($hash)
     . "&tran_id=" . urlencode($transactionId)
     . "&amount=" . urlencode($totalAmount)
     . "&firstname=Customer"
@@ -61,4 +64,4 @@ $_SESSION['amount'] = $totalAmount;
 // Redirect to ABA PayWay
 header("Location: $paymentUrl");
 exit;
-?>
+```
