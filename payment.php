@@ -64,4 +64,3 @@ $_SESSION['amount'] = $totalAmount;
 // Redirect to ABA PayWay
 header("Location: $paymentUrl");
 exit;
-```
